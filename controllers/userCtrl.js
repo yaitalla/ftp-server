@@ -13,6 +13,28 @@ const getEmails = (obj, email) => {
   }
 }
 
+const login = (req, res) => {
+  let user = new User(
+    {
+      email: req.body.email,
+      hashpass: req.body.password
+    }
+  );
+  User.find({ email: req.body.email }).then(
+    result => {
+      if (!result || result.length === 0) {
+        res.send("Email does not exist in database")
+      }
+      const hash = result[0].hashpass;
+    //  console.log(hash);
+    //  console.log(user.hashpass)
+      if (bcrypt.compareSync(user.hashpass, hash)){
+        res.send('logged in')
+      }
+      res.send('invalid password')
+  });
+}
+
  const register =  (req, res) => {
      let user = new User(
        {
@@ -20,19 +42,21 @@ const getEmails = (obj, email) => {
          hashpass: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(8), null)
        }
      );
-     user.save((err) => {
-       if (err) {
-         res.send(err);
-       } else {
-         res.send('User created successfully');
+     User.find({ email: req.body.email }).then(
+       result => {
+         if (!result || result.length === 0) {
+           user.save((err) => {
+             if (err) {
+               res.send(err);
+             } else {
+               res.send('User created successfully');
+             }
+           })
+         } else {
+           res.send('email already taken');
+         }
        }
-     })
-/*
-     const obj  = details();
-     for (key in obj)
-     console.log(obj[key])
-     res.send('Email already taken')
-*/
+     );
 };
 
 const test = (req, res) => {
@@ -45,7 +69,6 @@ const details = (req, res) => {
     db.collection("users").find({}, { projection: { _id: 0, email: 1}
     }).toArray((err, res) => {
       if (err) throw err;
-      getEmails(res, req.body.email)
       return(res);
       db.close();
     });
@@ -56,5 +79,6 @@ const details = (req, res) => {
 module.exports = {
   register,
   test,
-  details
+  details,
+  login
 };

@@ -33,4 +33,11 @@ const userSchema = new Schema({
   }
 });
 
+userSchema.methods.passwordHash = function(password) {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+userSchema.methods.passwordCheck = function(password) {
+  return bcrypt.compareSync(password, this.password);
+};
+
 module.exports = mongoose.model('User', userSchema);
