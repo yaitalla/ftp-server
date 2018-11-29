@@ -5,12 +5,14 @@ const upload = require('express-fileupload');
 const app = express();
 const helmet = require('helmet');
 const user = require('./routes/userRoute');
+const ftp = require('./routes/ftpRoute');
 
 app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(upload());
 app.use('/users', user);
+app.use('/ftp', ftp);
 app.use(express.static('./static'));
 /*
 app.get('/', (req, res) => {

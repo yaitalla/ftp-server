@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const userCtrl = require('../controllers/userCtrl');
+const checkToken = require('../controllers/authCtrl');
 
 router.post('/register', userCtrl.register);
 router.post('/login', userCtrl.login);
-//router.get('/', getAllUsers);
+router.get('/details', checkToken,  userCtrl.details);
 router.get('/test', userCtrl.test);
+//router.use(userCtrl.middleware);
 
-function getAllUsers(req, res, next){
-  res.json(userCtrl.details());
-}
+
 
 module.exports = router;

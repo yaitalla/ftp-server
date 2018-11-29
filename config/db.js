@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const url = "mongodb://localhost:27017/whis";
-
+const secret = 'supersecretwhis'
 mongoose.Promise = global.Promise;
 mongoose.connect(url, { useNewUrlParser: true}).then(
   () => {console.log('Database connected')},
@@ -10,5 +10,6 @@ mongoose.connect(url, { useNewUrlParser: true}).then(
 
 module.exports = {
   mongoose,
-  url
+  url,
+  secret
 }
