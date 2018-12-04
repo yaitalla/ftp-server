@@ -5,7 +5,9 @@ const upload = require('express-fileupload');
 const app = express();
 const helmet = require('helmet');
 const api = require('./routes/api');
+const cors = require('cors');
 
+app.use(cors());
 app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
