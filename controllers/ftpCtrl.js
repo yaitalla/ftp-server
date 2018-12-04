@@ -12,8 +12,6 @@ const isEmpty = (obj) => {
 
 const upload = (req, res) => {
   console.log(req.headers);
-  res.redirect('/');
-  /*
   if (isEmpty(req.files)) {
     console.log('no file');
     res.redirect('/');
@@ -32,7 +30,6 @@ const upload = (req, res) => {
       });
     });
   }
-  */
 };
 
 /*

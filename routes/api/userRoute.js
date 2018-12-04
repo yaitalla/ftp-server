@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const userCtrl = require('../controllers/userCtrl');
-const checkToken = require('../controllers/authCtrl');
+const userCtrl = require('../../controllers/userCtrl');
+const checkToken = require('../../controllers/authCtrl');
 
 router.post('/register', userCtrl.register);
 router.post('/login', userCtrl.login);

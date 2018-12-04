@@ -26,6 +26,8 @@ const login = (req, res) => {
       console.log(user.hashpass)
       */
       if (bcrypt.compareSync(req.body.password, hash)){
+        //res.set('x-access-token': result[0].token);
+        //res.redirect('/ftp');
         return res.status(200).json({
           success: `Logged in as ${req.body.email}`,
           token: result[0].token
