@@ -18,26 +18,21 @@ const login = (req, res) => {
   User.find({ email: req.body.email }).then(
     result => {
       if (!result || result.length === 0) {
-        res.send("Email does not exist in database")
-      }
-      const hash = result[0].hashpass;
-      /*
-      console.log(hash);
-      console.log(user.hashpass)
-      */
-      if (bcrypt.compareSync(req.body.password, hash)){
-        res.set({'x-access-token': result[0].token});
-        /*
-        res.redirect('localhost:8080/ftp');
-        */
-        return res.status(200).json({
-          success: `Logged in as ${req.body.email}`,
-          token: result[0].token
-        });
+        res.send('Email does not exist in database')
       } else {
-        res.send('invalid password')
+        const hash = result[0].hashpass;
+        if (bcrypt.compareSync(req.body.password, hash)){
+          res.set({'x-access-token': result[0].token});
+          return res.status(200).send({
+            token: result[0].token
+          });
+        } else {
+          res.status(200).json({
+            message: 'invalid password'
+          })
+        }
       }
-  });
+  }).catch(err => console.log('yasErr', err));
 }
 
  const register =  (req, res) => {
@@ -65,8 +60,7 @@ const login = (req, res) => {
              if (err) {
                res.send(err);
              } else {
-               return res.status(200).json({
-                 success: `Registered as ${user.email}`,
+               return res.status(200).send({
                  token: JWToken
                });
              }
