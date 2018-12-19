@@ -22,10 +22,9 @@ const login = (req, res) => {
       } else {
         const hash = result[0].hashpass;
         if (bcrypt.compareSync(req.body.password, hash)){
-          res.set({'x-access-token': result[0].token});
-          return res.status(200).send({
+          res.status(200).send({
             token: result[0].token
-          });
+          })
         } else {
           res.status(200).json({
             message: 'invalid password'

@@ -7,16 +7,13 @@ const helmet = require('helmet');
 const api = require('./routes/api');
 const cors = require('cors');
 
-app.use(cors());
+app.use(cors({"origin": "*"}));
 app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(upload());
 app.use('/api', api);
-/*
-app.use('/users', user);
-app.use('/ftp', ftp);
-*/
+
 app.use(express.static('../client'));
 
 app.listen(process.env.port || 4000, () => {
