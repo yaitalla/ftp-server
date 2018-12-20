@@ -4,6 +4,7 @@ const conf = require('../config/db')
 
 const checkToken = (req, res, next) => {
   const token = req.headers['x-access-token'];
+  console.log(req.headers)
   if (!token) {
     return res.status(403).json({
       auth: false,
