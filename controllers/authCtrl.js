@@ -3,19 +3,17 @@ const conf = require('../config/db')
 
 
 const checkToken = (req, res, next) => {
-  console.log(req.headers)
-  const referer = req.headers.referer.substr(req.headers.referer.length - 6);
-  console.log({referer})
   const token = req.headers['x-access-token'];
-  if (!token && referer !== 'signup' && referer !== '/login') {
-    return res.status(403).json({
+  if (!token) {
+    console.log('no token no access')
+    return res.status(500).json({
       auth: false,
       message: "no token no access"
     });
-  } else if (referer !== 'signup' && referer !== '/login') {
+  } else {
     jwt.verify(token, conf.secret, (err, decoded) => {
       if (err) {
-        console.log('tokene', token)
+        console.log(err)
         return res.status(500).send("jwt.verify failed");
       } else {
         req.userId = decoded._id;
@@ -23,7 +21,7 @@ const checkToken = (req, res, next) => {
       }
     });
   }
-next();
+
 };
 
 module.exports = checkToken;

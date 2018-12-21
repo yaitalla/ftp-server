@@ -5,7 +5,7 @@ const checkToken = require('../../controllers/authCtrl');
 
 router.post('/register', userCtrl.register);
 router.post('/login', userCtrl.login);
-router.get('/details', checkToken,  userCtrl.details);
+router.get('/details', userCtrl.details);
 router.get('/test', userCtrl.test);
 //router.use(userCtrl.middleware);
 

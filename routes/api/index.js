@@ -4,7 +4,7 @@ const user = require('./userRoute');
 const ftp = require('./ftpRoute');
 const checkToken = require('../../controllers/authCtrl');
 
-router.use('/ftp', checkToken, ftp);
+router.use('/ftp', ftp);
 router.use('/user', user);
 
 module.exports = router;

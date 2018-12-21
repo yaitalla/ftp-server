@@ -24,11 +24,12 @@ const login = (req, res) => {
       } else {
         const hash = result[0].hashpass;
         if (bcrypt.compareSync(req.body.password, hash)){
+          console.log(result[0].token)
           res.status(200).send({
             token: result[0].token
           })
         } else {
-          res.status(200).json({
+          res.status(500).send({
             message: 'invalid password'
           })
         }
@@ -61,6 +62,7 @@ const login = (req, res) => {
              if (err) {
                res.send(err);
              } else {
+               console.log(JWToken)
                return res.status(200).send({
                  token: JWToken
                });

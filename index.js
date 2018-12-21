@@ -13,7 +13,7 @@ app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(upload());
-app.use('/api', checkToken, api);
+app.use('/api', api);
 
 app.use(express.static('../client'));
 
