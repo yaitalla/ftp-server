@@ -18,7 +18,9 @@ const login = (req, res) => {
   User.find({ email: req.body.email }).then(
     result => {
       if (!result || result.length === 0) {
-        res.send('Email does not exist in database')
+        res.status(500).json({
+          message: 'login does not exist'
+        })
       } else {
         const hash = result[0].hashpass;
         if (bcrypt.compareSync(req.body.password, hash)){
@@ -69,7 +71,7 @@ const login = (req, res) => {
            res.send('email already taken');
          }
        }
-     );
+     ).catch(err => console.log('USR_CTRL', err));
 };
 
 const test = (req, res) => {
