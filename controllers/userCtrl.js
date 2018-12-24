@@ -18,7 +18,7 @@ const login = (req, res) => {
   User.find({ email: req.body.email }).then(
     result => {
       if (!result || result.length === 0) {
-        res.status(500).json({
+        res.status(401).json({
           message: 'login does not exist'
         })
       } else {
@@ -29,7 +29,7 @@ const login = (req, res) => {
             token: result[0].token
           })
         } else {
-          res.status(500).send({
+          res.status(401).send({
             message: 'invalid password'
           })
         }
@@ -52,7 +52,7 @@ const login = (req, res) => {
        },
          conf.secret,
        {
-         expiresIn: '2h'
+         expiresIn: '24h'
        });
       user.token = JWToken;
      User.find({ email: req.body.email }).then(

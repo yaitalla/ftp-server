@@ -11,12 +11,8 @@ const isEmpty = (obj) => {
 }
 
 const upload = (req, res) => {
-  console.log(req.body);
-  return res.status(404).json({
-    message: req.body
-  });
-/*  if (isEmpty(req.files)) {
-    return res.status(500).json({
+  if (isEmpty(req.files)) {
+    return res.status(200).json({
       message: 'no file'
     });
   } else {
@@ -34,7 +30,7 @@ const upload = (req, res) => {
         message: "File uploaded successfully"
       });
     });
-  }*/
+  }
 };
 
 const getFiles = (req, res) => {
@@ -55,13 +51,14 @@ const getFiles = (req, res) => {
   });
 }
 
-/*
 const download = (req, res) => {
-  res.download('../')
+  console.log('ici')
+  //next()
+//  res.download('../uploadedFiles/upload')
 }
-*/
 
 module.exports = {
   upload,
+  download,
   getFiles
 }

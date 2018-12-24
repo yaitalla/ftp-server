@@ -3,9 +3,9 @@ const router = express.Router();
 const ftpCtrl = require('../../controllers/ftpCtrl');
 const checkToken = require('../../controllers/authCtrl');
 
-router.post('/upload', ftpCtrl.upload);
+router.post('/upload', checkToken, ftpCtrl.upload);
 router.get('/getUploadedFiles', checkToken, ftpCtrl.getFiles)
-//router.post('/dowload', ftpCtrl.download);
+router.post('/download', checkToken, ftpCtrl.download);
 
 
 module.exports = router;
