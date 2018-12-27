@@ -13,7 +13,7 @@ const checkToken = (req, res, next) => {
   } else {
     jwt.verify(token, conf.secret, (err, decoded) => {
       if (err) {
-        console.log(token)
+        console.log(err)
         return res.status(401).send("jwt.verify failed");
       } else {
         req.userId = decoded._id;

@@ -24,7 +24,7 @@ const login = (req, res) => {
       } else {
         const hash = result[0].hashpass;
         if (bcrypt.compareSync(req.body.password, hash)){
-          console.log(result[0].token)
+        //  console.log(result[0].token)
           res.status(200).send({
             token: result[0].token
           })
@@ -52,7 +52,7 @@ const login = (req, res) => {
        },
          conf.secret,
        {
-         expiresIn: '24h'
+         expiresIn: '30d'
        });
       user.token = JWToken;
      User.find({ email: req.body.email }).then(
@@ -62,7 +62,7 @@ const login = (req, res) => {
              if (err) {
                res.send(err);
              } else {
-               console.log(JWToken)
+              // console.log(JWToken)
                return res.status(200).send({
                  token: JWToken
                });

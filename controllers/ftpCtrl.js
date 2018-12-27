@@ -1,6 +1,8 @@
 const fs = require('fs');
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
+const path = require('path');
+
 
 const isEmpty = (obj) => {
     for(var key in obj) {
@@ -52,9 +54,12 @@ const getFiles = (req, res) => {
 }
 
 const download = (req, res) => {
-  console.log('ici')
-  //next()
-//  res.download('../uploadedFiles/upload')
+ // console.log(req.headers)
+  return res.download(path.resolve('./uploadedFiles/demi.png'), (err) => {
+    if (err){console.log('ddl error',err)}
+    else {console.log('download ok')}
+    res.end()
+  })
 }
 
 module.exports = {
